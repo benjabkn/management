@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Management</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Barra lateral de navegación -->
+      <!-- Contenido principal -->
+      <main class="main-content">
+        <!-- Barra superior -->
+        <header class="top-bar">
+        </header>
+
+        <!-- Tabla de productos -->
+        <table class="product-table">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Producto</th>
+              <th>Costo</th>
+              <th>Precio</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="productTableBody">
+            <!-- Aquí se insertarán las filas de productos dinámicamente -->
+          </tbody>
+        </table>
+    <!-- Botón para abrir el modal -->
+    <button onclick="showProductForm()" class="add-product-btn">Agregar Producto</button>
+
+    <!-- Modal para el formulario de creación de productos -->
+    <div id="productFormModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="hideProductForm()">&times;</span>
+            <form id="productForm">
+                <h2>Agregar Nuevo Producto</h2>
+                <label for="name">Nombre:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="price">Precio:</label>
+                <input type="number" id="price" name="price" required>
+                <label for="category">Categoría:</label>
+                <input type="text" id="category" name="category" required>
+                <label for="stock">Stock:</label>
+                <input type="number" id="stock" name="stock" required>
+                <button type="submit">Agregar Producto</button>
+            </form>
+        </div>
+    </div>
+
+        <!-- Contenedor del formulario de creación de productos -->
+        <div
+          id="productFormContainer"
+          class="form-container"
+          style="display: none"
+        >
+
+
+            <div class="container">
+              <!-- ... contenido del HTML ... -->
+
+              <!-- Formulario para agregar un nuevo producto -->
+              <div
+                id="productFormContainer"
+                class="form-container"
+                style="display: none"
+              >
+                <form id="productForm">
+                  <h2>Agregar Nuevo Producto</h2>
+
+                  <div class="form-group">
+                    <label for="name">Nombre del Producto:</label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      placeholder="Ej. Pizza Muzzarella"
+                      required
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="price">Precio:</label>
+                    <input
+                      type="number"
+                      id="price"
+                      name="price"
+                      placeholder="Ej. 500"
+                      required
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="category">Categoría:</label>
+                    <input
+                      type="text"
+                      id="category"
+                      name="category"
+                      placeholder="Ej. Platos Principales"
+                      required
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="stock">Stock:</label>
+                    <input
+                      type="number"
+                      id="stock"
+                      name="stock"
+                      placeholder="Ej. 100"
+                      required
+                    />
+                  </div>
+
+                  <div class="form-actions">
+                    <button type="submit" class="btn-primary">
+                      Agregar Producto
+                    </button>
+                    <button
+                      type="button"
+                      class="btn-secondary"
+                      onclick="hideProductForm()"
+                    >
+                      Cancelar
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- Formulario para editar un producto -->
+        <form id="editProductForm" style="display: none">
+          <h2>Editar Producto</h2>
+          <input type="hidden" id="editProductId" />
+          <label for="editName">Name:</label>
+          <input type="text" id="editName" name="editName" required />
+          <label for="editPrice">Price:</label>
+          <input type="number" id="editPrice" name="editPrice" required />
+          <label for="editCategory">Category:</label>
+          <input type="text" id="editCategory" name="editCategory" required />
+          <label for="editStock">Stock:</label>
+          <input type="number" id="editStock" name="editStock" required />
+          <button type="submit">Update Product</button>
+          <button
+            type="button"
+            onclick="document.getElementById('editProductForm').style.display = 'none'"
+          >
+            Cancel
+          </button>
+        </form>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

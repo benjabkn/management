@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const menuRoutes = require('./routes/menuRoutes'); // Rutas para el menú
-
+const cors = require('cors');
 const app = express();
 
 // Conexión a MongoDB
@@ -16,6 +16,12 @@ mongoose.connect('mongodb+srv://benja856:benja123456@cluster1.pxar9.mongodb.net/
 // Middleware
 app.use(morgan('dev'));
 app.use(express.json());
+app.use(cors());
+
+// Inicia el servidor
+app.listen(3001, () => {
+  console.log('Server running on http://localhost:3000');
+});
 
 // Rutas
 app.use('/api/menu', menuRoutes); // Monta las rutas de menú en "/api/menu"
