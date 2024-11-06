@@ -11,6 +11,8 @@ async function loadProducts() {
         console.error('Error loading products:', error);
     }
 }
+// Cargar productos al inicio
+loadProducts();
 
 // Función para mostrar los productos en la tabla
 function displayProducts(products) {
@@ -21,12 +23,7 @@ function displayProducts(products) {
         const row = document.createElement('tr');
         
         row.innerHTML = `
-            <td>${product.code || '-'}</td>
             <td>${product.name}</td>
-            <td>${product.cost ? `$${product.cost.toFixed(2)}` : '-'}</td>
-            <td>${product.marginDollar ? `$${product.marginDollar.toFixed(2)}` : '-'}</td>
-            <td>${product.marginPercent ? `${product.marginPercent.toFixed(2)} %` : '-'}</td>
-            <td>${product.markupPercent ? `${product.markupPercent.toFixed(2)} %` : '-'}</td>
             <td>${product.price ? `$${product.price.toFixed(2)}` : '-'}</td>
             <td>
                 <button onclick="editProduct('${product._id}')">Edit</button>
@@ -37,35 +34,6 @@ function displayProducts(products) {
         tableBody.appendChild(row);
     });
 }
-
-// Manejar el formulario para agregar un nuevo producto
-document.getElementById('productForm').addEventListener('submit', async (event) => {
-    event.preventDefault(); // Evita que el formulario recargue la página
-
-    const newProduct = {
-        name: document.getElementById('name').value,
-        price: parseFloat(document.getElementById('price').value),
-        category: document.getElementById('category').value,
-        stock: parseInt(document.getElementById('stock').value),
-    };
-
-    try {
-        const response = await fetch(apiURL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(newProduct)
-        });
-
-        if (response.ok) {
-            loadProducts(); // Recargar la lista de productos
-            document.getElementById('productForm').reset(); // Limpiar el formulario
-        } else {
-            console.error('Failed to add product');
-        }
-    } catch (error) {
-        console.error('Error adding product:', error);
-    }
-});
 
 
 // Función para eliminar un producto por ID
@@ -87,24 +55,11 @@ async function deleteProduct(id) {
 }
 
 // Función para cargar los datos de un producto en el formulario de edición
-function editProduct(id) {
-    fetch(`${apiURL}/${id}`)
-        .then(response => response.json())
-        .then(product => {
-            document.getElementById('editProductId').value = product._id;
-            document.getElementById('editName').value = product.name;
-            document.getElementById('editPrice').value = product.price;
-            document.getElementById('editCategory').value = product.category;
-            document.getElementById('editStock').value = product.stock;
-            document.getElementById('editProductForm').style.display = 'block';
-        })
-        .catch(error => console.error('Error fetching product:', error));
-}
-
-// Manejar el formulario de edición de producto
+// Función para manejar el envío del formulario de edición de producto
 document.getElementById('editProductForm').addEventListener('submit', async (event) => {
-    event.preventDefault();
+    event.preventDefault(); // Evita que el formulario recargue la página
 
+    // Obtén los valores de los campos del formulario
     const id = document.getElementById('editProductId').value;
     const updatedProduct = {
         name: document.getElementById('editName').value,
@@ -114,26 +69,55 @@ document.getElementById('editProductForm').addEventListener('submit', async (eve
     };
 
     try {
+        // Realiza la solicitud PUT para actualizar el producto
         const response = await fetch(`${apiURL}/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(updatedProduct)
+            body: JSON.stringify(updatedProduct) // Envía los datos actualizados como JSON
         });
 
         if (response.ok) {
-            loadProducts(); // Recargar la lista de productos
-            document.getElementById('editProductForm').reset(); // Limpiar el formulario
-            document.getElementById('editProductForm').style.display = 'none'; // Ocultar el formulario de edición
+            // Si la actualización es exitosa, recarga la lista de productos
+            console.log('Producto actualizado con éxito');
+            loadProducts(); // Recargar la lista de productos para reflejar los cambios
+            document.getElementById('editProductForm').reset(); // Limpia el formulario
+            hideEditProductForm(); // Oculta el modal de edición después de actualizar
         } else {
-            console.error('Failed to update product');
+            // Si hay un error en la respuesta, muestra el error en la consola
+            console.error('Error al actualizar el producto:', await response.text());
         }
     } catch (error) {
-        console.error('Error updating product:', error);
+        console.error('Error al enviar la solicitud de actualización:', error);
     }
 });
 
-// Cargar productos al inicio
-loadProducts();
+// Manejar el formulario de edición de producto
+// Función para cargar los datos de un producto en el formulario de edición y mostrar el modal
+function editProduct(id) {
+    fetch(`${apiURL}/${id}`)
+        .then(response => response.json())
+        .then(product => {
+            document.getElementById('editProductId').value = product._id;
+            document.getElementById('editName').value = product.name;
+            document.getElementById('editPrice').value = product.price;
+            document.getElementById('editCategory').value = product.category;
+            document.getElementById('editStock').value = product.stock;
+            showEditProductForm(); // Muestra el modal de edición
+        })
+        .catch(error => console.error('Error fetching product:', error));
+}
+
+// Función para mostrar el modal de edición
+function showEditProductForm() {
+    document.getElementById("editProductModal").style.display = "flex";
+}
+
+// Función para ocultar el modal de edición
+function hideEditProductForm() {
+    document.getElementById("editProductModal").style.display = "none";
+}
+
+
 
 // Función para mostrar el formulario de creación de productos en el modal
 function showProductForm() {
@@ -183,3 +167,4 @@ document.getElementById('productForm').addEventListener('submit', async (event) 
         console.error('Error adding product:', error);
     }
 });
+
