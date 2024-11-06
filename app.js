@@ -18,6 +18,11 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(cors());
 
+
+// Configura la carpeta `public` para servir archivos estáticos
+app.use(express.static('public'));app.use(express.static('public'));
+
+
 // Inicia el servidor
 app.listen(3001, () => {
   console.log('Server running on http://localhost:3000');
@@ -40,3 +45,4 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
