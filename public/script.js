@@ -150,7 +150,7 @@ document.getElementById('productForm').addEventListener('submit', async (event) 
     };
 
     try {
-        const response = await fetch('http://localhost:3000/api/menu', {
+        const response = await fetch(apiURL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(newProduct)
