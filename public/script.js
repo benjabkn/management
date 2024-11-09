@@ -1,5 +1,5 @@
 // URL base de la API
-const apiURL = 'http://localhost:3000/api/menu';
+const apiURL = 'http://localhost:3003/api/menu';
 
 // Función para cargar los productos desde la API
 async function loadProducts() {
