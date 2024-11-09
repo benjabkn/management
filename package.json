@@ -1,13 +1,15 @@
 {
   "name": "restaurantmanagement",
   "version": "1.0.0",
-  "main": "app.js",
+  "main": "server.js",
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "axios": "^1.7.7",
     "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "mongoose": "^8.8.0",
     "morgan": "^1.10.0"
@@ -16,7 +18,8 @@
     "nodemon": "^3.1.7"
   },
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js"
+    "start": "ip-bd-add.js && node app.js",
+    "db:add-ip": "node ip-bd-add.js",
+    "dev": "nodemon server.js"
   }
 }
