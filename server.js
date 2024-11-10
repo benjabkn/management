@@ -5,6 +5,8 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const axios = require('axios');
 const menuRoutes = require('./routes/menuRoutes'); // Rutas para el menú
+const categoryRoutes = require('./routes/categoryRoutes'); // Ajusta la ruta según tu estructura
+
 const cors = require('cors');
 const app = express();
 
@@ -22,6 +24,8 @@ app.use(express.static('public'));
 
 // Rutas
 app.use('/api/menu', menuRoutes); // Monta las rutas de menú en "/api/menu"
+app.use('/api/categories', categoryRoutes);
+
 
 // Manejo de errores 404
 app.use((req, res, next) => {
