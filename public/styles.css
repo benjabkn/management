@@ -1,25 +1,107 @@
+/* Contenedor central */
+.center-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 100vh; /* Para centrar verticalmente en la pantalla */
+    padding: 20px;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+.top-bar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+/* Search Bar Styles */
+.search-container {
+    margin-bottom: 20px; /* Space between search bar and table */
+    display: flex; /* Flexbox for alignment */
+    justify-content: center; /* Center the search bar */
+    align-items: center;
+
+}
+
+#searchBar {
+    padding: 10px; /* Padding for better touch target */
+    font-size: 16px; /* Font size */
+    border: 1px solid #ddd; /* Light border */
+    border-radius: 4px; /* Rounded corners */
+    width: 300px; /* Fixed width or change to 100% for full-width */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Optional: Focus Effect */
+#searchBar:focus {
+    border-color: #4CAF50; /* Change border color on focus */
+    outline: none; /* Remove default outline */
+}
+.top-bar-search{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+/* Estilo general para botones */
+button,
+.add-product-btn,
+.add-category-btn,
+.btn-primary,
+.btn-secondary,
+.product-table button {
+    padding: 10px 20px;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 10px; /* Espaciado entre botones */
+    transition: background-color 0.2s;
+}
+
+button:hover,
+.add-product-btn:hover,
+.add-category-btn:hover,
+.product-table .edit-btn:hover,
+.product-table .delete-btn:hover,
+.btn-primary:hover,
+.btn-secondary:hover {
+    background-color: #98dbbc; /* Color más oscuro al pasar el mouse */
+}
+
+/* Estilo para el botón de eliminar */
+.product-table .delete-btn {
+    background-color: #f44336; /* Color rojo */
+}
+
+.product-table .delete-btn:hover {
+    background-color: #d32f2f; /* Color más oscuro al pasar el mouse */
+}
+
 /* Contenedor de la tabla de productos */
 .product-table {
     width: 100%;
-    max-width: 800px;
-    margin-top: 20px;
+    max-width: 1200px; /* Aumenta el ancho máximo para pantallas grandes */
+    margin: 20px auto; /* Centra la tabla */
     border-collapse: collapse;
     font-family: Arial, sans-serif;
 }
 
-/* Encabezados de la tabla */
+/* Encabezados y celdas de la tabla */
+.product-table th,
+.product-table td {
+    padding: 12px;
+    border: 1px solid #ddd; /* Añadir borde para alineación */
+    text-align: left;
+    font-size: 14px; /* Ajusta el tamaño de fuente si es necesario */
+}
+
 .product-table th {
     background-color: #4CAF50;
     color: white;
-    padding: 10px;
-    text-align: left;
-    border: 1px solid #ddd; /* Añadir borde para alineación */
-}
-
-/* Filas de la tabla */
-.product-table td, .product-table th {
-    padding: 12px;
-    border: 1px solid #ddd; /* Añadir borde para alineación */
 }
 
 .product-table tr:nth-child(even) {
@@ -29,54 +111,6 @@
 .product-table tr:hover {
     background-color: #f1f1f1;
 }
-
-/* Botones de acción */
-.product-table button {
-    padding: 5px 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    margin: 0 2px;
-}
-
-.product-table .edit-btn {
-    background-color: #4CAF50;
-    color: white;
-    transition: background-color 0.2s;
-}
-
-.product-table .edit-btn:hover {
-    background-color: #45a049;
-}
-
-.product-table .delete-btn {
-    background-color: #f44336;
-    color: white;
-    transition: background-color 0.2s;
-}
-
-.product-table .delete-btn:hover {
-    background-color: #d32f2f;
-}
-
-/* Botón para agregar producto */
-.add-product-btn {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    display: block;
-    margin: 20px auto;
-}
-
-.add-product-btn:hover {
-    background-color: #45a049;
-}
-
 
 /* Estilo para el fondo del modal */
 .modal {
@@ -152,35 +186,73 @@
 }
 
 .btn-primary {
-    background-color: #4CAF50;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
     flex: 1;
-    margin-right: 10px;
-    transition: background 0.3s;
-}
-
-.btn-primary:hover {
-    background-color: #45a049;
+    margin-right: auto;
 }
 
 .btn-secondary {
-    background-color: #f44336;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
     flex: 1;
-    margin-left: 10px;
-    transition: background 0.3s;
+    margin-left: auto;
 }
 
-.btn-secondary:hover {
-    background-color: #d32f2f;
+
+
+
+
+
+
+
+
+/* Global Styles */
+body {
+    font-family: 'Arial', sans-serif; /* Main font */
+    font-size: 16px; /* Base font size */
+    color: #333; /* Text color */
+    line-height: 1.5; /* Improve readability */
+    margin: 0; /* Remove default margin */
+    padding: 20px; /* Add some padding */
+    background-color: #f9f9f9; /* Light background color */
+}
+
+/* Table Styles */
+.product-table {
+    width: 100%;
+    max-width: 1200px; /* Aumenta el ancho máximo para pantallas grandes */
+    margin: 20px auto; /* Centra la tabla */
+    border-collapse: collapse;
+    font-family: 'Arial', sans-serif; /* Ensure table uses the same font */
+}
+
+/* Table Headers */
+.product-table th {
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    padding: 12px; /* Padding for headers */
+}
+
+/* Table Data */
+.product-table td {
+    padding: 12px; /* Padding for cells */
+    border: 1px solid #ddd; /* Border for cells */
+}
+
+/* Action Buttons */
+.product-table button {
+    padding: 10px 15px; /* Padding for buttons */
+    font-size: 14px; /* Font size for buttons */
+    border: none;
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Other Button Styles (edit, delete) */
+.product-table .edit-btn {
+    background-color: #4CAF50; /* Green button */
+    color: white; /* White text */
+}
+
+.product-table .delete-btn {
+    background-color: #f44336; /* Red button */
+    color: white; /* White text */
 }
