@@ -6,6 +6,9 @@ const morgan = require('morgan');
 const axios = require('axios');
 const menuRoutes = require('./routes/menuRoutes'); // Rutas para el menú
 const categoryRoutes = require('./routes/categoryRoutes'); // Ajusta la ruta según tu estructura
+const userRoutes = require('./routes/userRoutes'); // Ajusta la ruta según tu estructura
+
+const path = require('path');
 
 const cors = require('cors');
 const app = express();
@@ -21,10 +24,19 @@ app.use(cors());
 
 // Configura la carpeta `public` para servir archivos estáticos
 app.use(express.static('public'));
+// Ruta para la página de usuarios
+app.get('/users', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'users.html'));
+});
+app.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'login.html'));
+});
+
 
 // Rutas
 app.use('/api/menu', menuRoutes); // Monta las rutas de menú en "/api/menu"
 app.use('/api/categories', categoryRoutes);
+app.use('/api/users', userRoutes);
 
 
 // Manejo de errores 404
@@ -43,6 +55,7 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
   console.log('Server running on http://localhost:' + PORT);
 });
+
 
 
 // Conexión a MongoDB

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Management</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <div class="container">
+        <!-- Contenido principal -->
+        <main class="main-content">
+            <!-- Barra superior -->
+            <header class="top-bar">
+
+                <button onclick="window.location.href='/'" class="add-product-btn">
+                    Productos
+                </button>
+                <button onclick="window.location.href='/users'" class="add-product-btn">
+                    Usuarios
+                </button>
+            </header>
+
+            <h2>Crear Nuevo Usuario</h2>
+            <form id="createUserForm">
+                <label for="name">Nombre:</label>
+                <input type="text"  id="createUsername" required><br>
+
+                <label for="email">Correo electrónico:</label>
+                <input  type="text" id="createEmail" required><br>
+
+                <label for="password">Contraseña:</label>
+                <input type="password" id="createPassword" name="password" required><br>
+
+                <button type="submit">Crear Usuario</button>
+            </form>
+            <h1>Lista de Usuarios</h1>
+
+            <!-- Contenedor para mostrar la lista de usuarios -->
+            <table id="userTable" class="product-table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="userTableBody">
+                    <!-- Aquí se insertarán los usuarios dinámicamente -->
+                </tbody>
+            </table>
+            <div id="editUserModal" class="modal" style="display: none">
+                <div class="modal-content">
+                    <span class="close" onclick="closeEditUserModal()">&times;</span>
+                    <form id="editUserForm">
+                        <h2>Editar Usuario</h2>
+                        <input type="hidden" id="editUserId" />
+
+                        <div class="form-group">
+                            <label for="editUsername">Nombre:</label>
+                            <input type="text" id="editUsername" name="editUsername" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="editEmail">Correo Electrónico:</label>
+                            <input type="email" id="editEmail" name="editEmail" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="editPassword">Correo Electrónico:</label>
+                            <input type="password" id="editPassword" name="editPassword" required />
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary">Actualizar Usuario</button>
+                            <button type="button" class="btn-secondary" onclick="closeEditUserModal()">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <script src="scriptUsers.js"></script>
+</body>
+
+</html>
