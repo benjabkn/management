@@ -265,3 +265,8 @@ function filterProducts() {
     // Muestra solo los productos filtrados
     displayProducts(filteredProducts);
 }
+
+
+document.getElementById('usersButton').addEventListener('click', function() {
+    window.location.href = '/users.html'; // Cambia '/users' a la ruta deseada
+});
