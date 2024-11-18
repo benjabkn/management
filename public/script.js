@@ -39,6 +39,7 @@ function displayProducts(products) {
 
         row.innerHTML = `
             <td>${product.name}</td>
+            <td>${product.image}</td>
             <td>${categoryDisplay}</td>
 
             <td>${product.price ? `$${product.price}` : '-'}</td>
@@ -179,6 +180,8 @@ document.getElementById('productForm').addEventListener('submit', async (event) 
         price: parseFloat(document.getElementById('price').value),
         category: document.getElementById('category').value, // Ahora es un dropdown
         stock: parseInt(document.getElementById('stock').value),
+        image: document.getElementById('image').files[0]
+
     };
 
     try {

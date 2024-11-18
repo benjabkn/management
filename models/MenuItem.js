@@ -5,7 +5,8 @@ const menuItemSchema = new mongoose.Schema({
   description: { type: String },
   price: { type: Number, required: true },
   stock: { type: Number, require: true},
-  category: { type: String, require: true}
+  category: { type: String, require: true},
+  image: { data: Buffer, type: String } 
 }, {
   timestamps: true
 });
