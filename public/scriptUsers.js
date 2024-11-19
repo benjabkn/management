@@ -47,17 +47,17 @@ function closeCreateUserModal() {
 
 // Función para crear un nuevo usuario
 document.getElementById('createUserForm').addEventListener('submit', async (event) => {
-    event.preventDefault(); // Evita el envío del formulario y recarga de la página
+    event.preventDefault();
 
-    // Recoger los valores de los campos del formulario
     const newUser = {
-        name: document.getElementById('createUsername').value,
-        email: document.getElementById('createEmail').value,
-        password: document.getElementById('createPassword').value // Nuevo campo para la contraseña
+        name: document.getElementById('createUsername').value.trim(),
+        email: document.getElementById('createEmail').value.trim(),
+        password: document.getElementById('createPassword').value.trim()
     };
 
+    console.log('Datos enviados al servidor:', newUser);
+
     try {
-        // Realizar la solicitud POST a la API
         const response = await fetch(apiUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -69,15 +69,14 @@ document.getElementById('createUserForm').addEventListener('submit', async (even
             throw new Error(errorData.message || 'Error en la creación del usuario');
         }
 
-        // Si la solicitud es exitosa
         alert('Usuario creado con éxito');
-        loadUsers(); // Recargar la lista de usuarios
-
+        loadUsers();
     } catch (error) {
         console.error('Error al crear usuario:', error);
         alert(error.message || 'Ocurrió un error al crear el usuario.');
     }
 });
+
 
 // Función para abrir el modal de edición de usuario
 function openEditUserModal() {
