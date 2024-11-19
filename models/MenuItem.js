@@ -6,7 +6,7 @@ const menuItemSchema = new mongoose.Schema({
   price: { type: Number, required: true },
   stock: { type: Number, require: true},
   category: { type: String, require: true},
-  image: { data: Buffer, type: String } 
+  image: { type: String, required: true }, // Solo URL
 }, {
   timestamps: true
 });

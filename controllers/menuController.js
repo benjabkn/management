@@ -1,5 +1,6 @@
 const MenuItem = require('../models/MenuItem');
 const mongoose = require('mongoose');
+const cloudinary = require('cloudinary').v2; // Asegúrate de configurar Cloudinary en otro archivo si no lo has hecho
 
 // Obtener todos los elementos del menú
 exports.getAllMenuItems = async (req, res) => {
@@ -14,7 +15,23 @@ exports.getAllMenuItems = async (req, res) => {
 // Método para crear un nuevo elemento en el menú
 exports.createMenuItem = async (req, res) => {
     try {
-        const newItem = await MenuItem.create(req.body);
+        // Si hay una imagen en la solicitud, súbela a Cloudinary
+        let imageUrl = '';
+        if (req.file) {
+            const result = await cloudinary.uploader.upload(req.file.path, {
+                folder: 'menu_items', // Carpeta en Cloudinary
+                use_filename: true,
+                unique_filename: false
+            });
+            imageUrl = result.secure_url; // URL de la imagen subida
+        }
+
+        // Crea el nuevo ítem del menú
+        const newItem = await MenuItem.create({
+            ...req.body,
+            image: imageUrl // Agrega la URL de la imagen al objeto
+        });
+
         res.status(201).json({
             message: 'New menu item successfully created!',
             item: newItem

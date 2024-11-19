@@ -1,6 +1,6 @@
 // controllers/userController.js
 const User = require('../models/User');
-
+const bcrypt = require('bcrypt');
 // Obtener todos los usuarios
 exports.getAllUsers = async (req, res) => {
     try {
@@ -31,35 +31,53 @@ exports.createUser = async (req, res) => {
     try {
         const { name, email, password } = req.body;
 
-        // Crear un nuevo usuario y guardarlo en la base de datos
+        // Validar que los campos no estén vacíos
+        if (!name || !email || !password) {
+            return res.status(400).json({ message: 'Todos los campos son obligatorios' });
+        }
+
+        // Verificar si el usuario ya existe
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ message: 'El correo ya está registrado' });
+        }
+
+        // Crear y guardar el nuevo usuario
         const newUser = new User({ name, email, password });
         await newUser.save();
 
-        res.status(201).json({ message: 'Usuario creado con éxito', userId: newUser._id });
+        res.status(201).json({ message: 'Usuario creado con éxito', user: newUser });
     } catch (error) {
+        console.error('Error al crear usuario:', error);
         res.status(500).json({ message: 'Error al crear usuario', error: error.message });
     }
 };
 
 // Controlador para autenticar al usuario
 exports.authenticateUser = async (req, res) => {
-    try {
-        const { email, password } = req.body;
+    const { email, password } = req.body;
 
-        // Buscar el usuario por email
+    try {
+        // Verificar si el usuario existe
         const user = await User.findOne({ email });
         if (!user) {
-            return res.status(404).json({ message: 'Usuario no encontrado' });
+            return res.status(400).json({ message: 'Usuario no encontrado' });
         }
 
-        // Comparar la contraseña ingresada con el hash almacenado
-        if (user.password !== password) {
+        // Verificar si la contraseña es válida
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
             return res.status(400).json({ message: 'Contraseña incorrecta' });
         }
 
-        res.status(200).json({ message: 'Autenticación exitosa', userId: user._id });
+        // Respuesta de éxito
+        res.status(200).json({
+            message: 'Inicio de sesión exitoso',
+            user: { id: user._id, name: user.name, email: user.email }
+        });
     } catch (error) {
-        res.status(500).json({ message: 'Error al autenticar usuario', error: error.message });
+        console.error('Error en el inicio de sesión:', error);
+        res.status(500).json({ message: 'Error interno del servidor' });
     }
 };
 
